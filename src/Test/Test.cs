@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess;
+using System;
 using Xunit;
 
 namespace Tests
@@ -8,7 +9,9 @@ namespace Tests
         [Fact]
         public void Test1()
         {
-            Assert.True(true);
+            SqlAccess access = new SqlAccess();
+            var result = access.GetEncryptKey("00d02d23d2ae");
+            Assert.True(result.Length > 0);
         }
     }
 }
