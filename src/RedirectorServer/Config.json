@@ -1,0 +1,9 @@
+{
+   
+  "AppSetting": {
+    "HostName": "0.0.0.0",
+    "Port": "2020",
+    "MaxConnections":"30000"
+  }
+  
+}
