@@ -9,7 +9,7 @@ namespace DataAccess.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseSqlServer(@"Server=.;Database=EACDB;User ID=sa;Password=AAaa1111;");
+            optionsBuilder.UseSqlServer(@"Server=192.168.1.105;Database=EACDB;User ID=sa;Password=AAaa1111;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
