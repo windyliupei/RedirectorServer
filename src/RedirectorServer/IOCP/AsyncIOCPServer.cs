@@ -523,8 +523,8 @@ namespace Service.IOCP
 
             if(string.IsNullOrEmpty(encryptString))
             {
-                MsSqlAccess msSql = new MsSqlAccess("");
-                encryptString = msSql.GepEncryptString(macId);
+                SqlAccess msSql = new SqlAccess();
+                encryptString = msSql.GetEncryptKey(macId);
             }
 
             return encryptString;
