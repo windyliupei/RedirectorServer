@@ -2,7 +2,7 @@
   "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true,
-    "copyToOutput": "Config.json"
+    "copyToOutput": [ "Config.json", "NLog.config" ]
   },
 
   "dependencies": {
@@ -13,6 +13,8 @@
       "type": "platform",
       "version": "1.0.0"
     },
+    "NLog": "4.4.0-betaV15",
+    "NLog.Extensions.Logging": "1.0.0-*",
     "System.Text.Encoding.CodePages": "4.0.1"
   },
 

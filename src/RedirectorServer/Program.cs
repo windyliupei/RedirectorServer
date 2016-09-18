@@ -7,6 +7,14 @@ using Microsoft.Extensions.Configuration;
 using System.Text;
 using Service.IOCP;
 using System.Net;
+using NLog;
+
+using NLog.Extensions.Logging;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using NLog.Config;
+using NLog.Targets;
 
 namespace RedirectorServer
 {
@@ -16,9 +24,32 @@ namespace RedirectorServer
         public static int Port;
         public static int MaxListenCount;
         public static Socket ServiceSocket;
+        private static NLog.ILogger _logger = null;
+        static Program()
+        {
+            ILoggerFactory loggerFactory = new LoggerFactory();
+            loggerFactory.AddNLog();
+            LogManager.Configuration = new XmlLoggingConfiguration("NLog.config", true);
+            NLog.ILogger _logger = NLog.LogManager.GetCurrentClassLogger();
+        }
+        
+
 
         public static void Main(string[] args)
         {
+            
+            //var config = new LoggingConfiguration();
+            //var fileTarget = new FileTarget();
+            //config.AddTarget("file", fileTarget);
+            //fileTarget.FileName = "${basedir}/log/file.txt";
+            //fileTarget.Layout = "${message}";
+            //var fileRule = new LoggingRule("*", NLog.LogLevel.Debug, fileTarget);
+            //config.LoggingRules.Add(fileRule);
+            //LogManager.Configuration = config;
+            
+
+            _logger.Debug("Server Start");
+
             LoadSettings();
 
             StartLisen();
