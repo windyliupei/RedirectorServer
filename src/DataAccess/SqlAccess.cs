@@ -8,9 +8,15 @@ namespace DataAccess
 {
     public class SqlAccess
     {
+        private string _connStr;
+        public SqlAccess(string connection)
+        {
+            _connStr = connection;
+        }
+
         public string GetEncryptKey(string macId)
         {
-            using (EACDBContext context = new EACDBContext())
+            using (EACDBContext context = new EACDBContext(_connStr))
             {
                 var query = context.EncryptionKeys.Where(x => x.MacId == macId);
 

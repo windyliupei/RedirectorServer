@@ -379,8 +379,9 @@ namespace Service.IOCP
                     //TODO 处理数据
 
                     string info = Encoding.UTF8.GetString(e.Buffer, e.Offset, e.BytesTransferred);
-                    //Log4Debug(String.Format("收到 {0} 数据为 {1}", sock.RemoteEndPoint.ToString(), info));
-
+                    //Log4Debug(String.Format("收到 {0} 数据为 {1}", sock.RemoteEndPoint.ToString(), inf)o);
+                    //TODO:Set the token mac id.
+                    userToken.MacId = info;
                     Send(userToken.SendEventArgs, e.Buffer, e.BytesTransferred);
                 }
                 //TODO:Cannot access a disposed object.Object name: 'System.Net.Sockets.Socket'.
@@ -464,6 +465,8 @@ namespace Service.IOCP
             userToken.ConnectSocket = null; //释放引用，并清理缓存，包括释放协议对象等资源
             _maxAcceptedClients.Release();
             _userTokenPool.Push(userToken);
+            //断开连接时移除“已经连接”token
+            _userTokenPool.RemoveToken(userToken.MacId);
 
         }
 
@@ -523,7 +526,7 @@ namespace Service.IOCP
 
             if(string.IsNullOrEmpty(encryptString))
             {
-                SqlAccess msSql = new SqlAccess();
+                SqlAccess msSql = new SqlAccess(RedirectorServer.AppSettingOptions.GetAppSetting().ConnectionSQL);
                 encryptString = msSql.GetEncryptKey(macId);
             }
 

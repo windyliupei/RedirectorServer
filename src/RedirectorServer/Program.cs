@@ -30,7 +30,7 @@ namespace RedirectorServer
             ILoggerFactory loggerFactory = new LoggerFactory();
             loggerFactory.AddNLog();
             LogManager.Configuration = new XmlLoggingConfiguration("NLog.config", true);
-            NLog.ILogger _logger = NLog.LogManager.GetCurrentClassLogger();
+            _logger = NLog.LogManager.GetCurrentClassLogger();
         }
         
 
@@ -65,10 +65,10 @@ namespace RedirectorServer
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             // 加载日志配置文件
-            var setttins = new ConfigurationBuilder().AddJsonFile("Config.json").Build();
-            IpAddress = setttins["AppSetting:HostName"];
-            Port = int.Parse(setttins["AppSetting:Port"]);
-            MaxListenCount = int.Parse(setttins["AppSetting:MaxConnections"]);
+            var appSetting = AppSettingOptions.GetAppSetting();
+            IpAddress = appSetting.HostName;
+            Port = appSetting.Port;
+            MaxListenCount = appSetting.MaxConnections;
         }
 
         /// <summary>

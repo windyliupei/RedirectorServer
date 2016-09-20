@@ -1,13 +1,15 @@
 {
   "version": "1.0.0-*",
   "buildOptions": {
-    "debugType": "portable"
+    "debugType": "portable",
+    "copyToOutput": [ "Config.json"]
   },
   "dependencies": {
     "System.Runtime.Serialization.Primitives": "4.1.1",
     "xunit": "2.1.0",
     "dotnet-test-xunit": "1.0.0-rc2-192208-24",
-    "DataAccess": "1.0.0-*"
+    "DataAccess": "1.0.0-*",
+    "RedirectorServer": "1.0.0-*"
   },
   "testRunner": "xunit",
   "frameworks": {

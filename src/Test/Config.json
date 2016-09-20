@@ -4,7 +4,7 @@
     "HostName": "0.0.0.0",
     "Port": "2020",
     "MaxConnections": "30000",
-    "ConnectionSQL": "Server=192.168.1.105;Database=EACDB;User ID=sa;Password=AAaa1111;"
+    "ConnectionSQL": "Server=127.0.0.1;Database=EACDB;User ID=sa;Password=AAaa1111;"
   }
   
 }

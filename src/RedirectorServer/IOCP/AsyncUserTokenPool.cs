@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Service.IOCP
 {
@@ -8,6 +9,15 @@ namespace Service.IOCP
     /// </summary>
     public class AsyncUserTokenPool
     {
+        List<AsyncUserToken> _connectedToken = new List<AsyncUserToken>();
+        public List<AsyncUserToken> ConnectedToken
+        {
+            get
+            {
+                return _connectedToken;
+            }
+        }
+
         Stack<AsyncUserToken> m_pool;
 
         // Initializes the object pool to the specified size
@@ -38,7 +48,9 @@ namespace Service.IOCP
         {
             lock (m_pool)
             {
-                return m_pool.Pop();
+                var token = m_pool.Pop();
+                _connectedToken.Add(token);
+                return token;
             }
         }
 
@@ -46,6 +58,27 @@ namespace Service.IOCP
         public int Count
         {
             get { return m_pool.Count; }
+        }
+
+        internal AsyncUserToken GetTokenByMacId(string macId)
+        {
+            foreach (var item in _connectedToken)
+            {
+                if (item.MacId == macId)
+                {
+                    return item;
+                }
+            } 
+            return null;
+        }
+
+        internal void RemoveToken(string macId)
+        {
+            var token = _connectedToken.FirstOrDefault(x => x.MacId == macId);
+            if (_connectedToken.Contains(token))
+            {
+                _connectedToken.Remove(token);
+            }
         }
     }
 }

@@ -43,6 +43,11 @@ namespace Service.IOCP
         /// </summary>
         private Socket _connectSocket;
 
+        /// <summary>
+        /// 连接的Mac Id
+        /// </summary>
+        private string _macId;
+
         #endregion
 
         #region 属性
@@ -76,6 +81,13 @@ namespace Service.IOCP
             get { return _sendBuffer; }
             set { _sendBuffer = value; }
         }
+
+        public string MacId
+        {
+            get { return _macId; }
+            set { _macId = value; }
+        }
+
         #endregion
 
         public AsyncUserToken(int ReceiveBufferSize)
